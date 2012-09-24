@@ -1,0 +1,6 @@
+-- Basic usage
+$dbp = new DbPatcher(
+    <database-config>,
+    <patch-directory>
+);
+$dbp->run();
