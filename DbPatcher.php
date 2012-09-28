@@ -41,25 +41,26 @@ use DbPatcher\Prompt;
  */
 class DbPatcher
 {
+
     /**
      * @var PDO
      */
-    private $connection = NULL;
+    private $connection = null;
 
     /**
      * @var DbPatcher\Patcher
      */
-    private $patcher = NULL;
+    private $patcher = null;
 
     /**
      * @var DbPatcher\Prompt
      */
-    private $prompt = NULL;
+    private $prompt = null;
 
     /**
      * @var DbPatcher\Commander
      */
-    private $commander = NULL;
+    private $commander = null;
 
     /**
      * DbPatcher contructor
@@ -67,11 +68,16 @@ class DbPatcher
      * @param array  $dbConfig Database configuration
      * @param string $patchDir Patch directory
      *
+     * @throws RuntimeException
+     *
      * @return void
      */
     public function __construct(array $dbConfig, $patchDir)
     {
-        $diff = array_diff(array('driver', 'hostname', 'username', 'password'), array_keys($dbConfig));
+        $diff = array_diff(
+            array('driver', 'hostname', 'username', 'password'),
+            array_keys($dbConfig)
+        );
 
         if (!empty($diff)) {
             throw new RuntimeException(
@@ -84,7 +90,9 @@ class DbPatcher
         }
 
         $this->connection = new PDO(
-            $dbConfig['driver'] . ':host=' . $dbConfig['hostname'] . ';dbname=' . $dbConfig['dbname'],
+            $dbConfig['driver'] . ':host=' .
+            $dbConfig['hostname'] . ';dbname=' .
+            $dbConfig['dbname'],
             $dbConfig['username'],
             $dbConfig['password']
         );
@@ -110,7 +118,7 @@ class DbPatcher
      */
     public function getPatcher()
     {
-        if (NULL === $this->patcher) {
+        if (is_null($this->patcher)) {
             $this->patcher = new Patcher($this->patchDir, $this->connection);
         }
 
@@ -124,13 +132,14 @@ class DbPatcher
      */
     public function getCommander()
     {
-        if (NULL === $this->commander) {
+        if (is_null($this->commander)) {
             $this->commander = new Commander();
-            $this->commander->addCommand('quit', array($this->commander, 'cExit'), 'Alias of `exit`')
+            $this->commander
+                ->addCommand('quit', array($this->commander, 'cExit'), 'Alias of `exit`')
                 ->addCommand('list', array($this, 'getList'), 'Patch list')
                 ->addCommand('status', array($this, 'status'), 'Database status')
                 ->addCommand('up', array($this->getPatcher(), 'upgrade'), 'Upgrade database')
-                ->addCommand('down', array($this->getPatcher(), 'downgrade') , 'Downgrade database');
+                ->addCommand('down', array($this->getPatcher(), 'downgrade'), 'Downgrade database');
         }
 
         return $this->commander;
@@ -143,7 +152,7 @@ class DbPatcher
      */
     public function getPrompt()
     {
-        if (NULL === $this->prompt) {
+        if (is_null($this->prompt)) {
             $this->prompt = new Prompt($this->getCommander());
             $this->prompt->setPrompt('dbpatcher>>>');
         }
@@ -154,7 +163,7 @@ class DbPatcher
     /**
      * Patcher setter
      *
-     * @param Patcher Patcher to set
+     * @param Patcher $patcher Patcher to set
      *
      * @return DbPatcher
      */
@@ -167,7 +176,7 @@ class DbPatcher
     /**
      * Commander setter
      *
-     * @var Commander Commander to set
+     * @param Commander $commander Commander to set
      *
      * @return DbPatcher
      */
@@ -180,7 +189,7 @@ class DbPatcher
     /**
      * Prompt setter
      *
-     * @param Prompt Prompt to set
+     * @param Prompt $prompt Prompt to set
      *
      * @return DbPatcher
      */
@@ -195,7 +204,7 @@ class DbPatcher
      *
      * @return void
      */
-    function status()
+    public function status()
     {
         $status = $this->getPatcher()->status();
 
@@ -218,7 +227,7 @@ class DbPatcher
      *
      * @return void
      */
-    function getList()
+    public function getList()
     {
         $list = $this->getPatcher()->getList();
 

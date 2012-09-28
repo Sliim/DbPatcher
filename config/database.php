@@ -18,6 +18,7 @@
  * PHP version 5.3
  *
  * @category DbPatcher
+ * @package  Configuration
  * @author   Sliim <sliim@mailoo.org>
  * @license  GNU/GPL http://www.gnu.org/licenses/gpl-3.0.html
  * @link     http://www.sliim-projects.eu
@@ -30,3 +31,4 @@ return array(
     'password' => '...',
     'dbname'   => '...',
 );
+

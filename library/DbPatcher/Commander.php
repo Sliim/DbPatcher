@@ -70,7 +70,7 @@ class Commander
      *
      * @return mixed Command's result
      */
-    public final function __call($command, array $args)
+    final public function __call($command, array $args)
     {
         $method = 'c' . ucfirst($command);
         if (method_exists($this, $method)) {
@@ -96,11 +96,13 @@ class Commander
      *
      * @return Commander
      */
-    public function addCommand($name, $command, $description='')
+    public function addCommand($name, $command, $description = '')
     {
         if (is_array($command)) {
             if (!method_exists($command[0], $command[1])) {
-                throw new \BadMethodCallException('Method `' . $method . '` not found in ' . get_class($object));
+                throw new \BadMethodCallException(
+                    'Method `' . $method . '` not found in ' . get_class($object)
+                );
             }
         } else {
             if (!function_exists($command)) {
@@ -149,3 +151,4 @@ class Commander
         throw new \Exception('exit', static::EXIT_CODE);
     }
 }
+

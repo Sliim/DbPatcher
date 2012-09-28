@@ -40,7 +40,7 @@ class Prompt
     /**
      * @var Commander
      */
-    private $commander = NULL;
+    private $commander = null;
 
     /**
      * @var string
@@ -104,7 +104,7 @@ class Prompt
             } catch (Exception $e) {
                 if ($e->getCode() === Commander::EXIT_CODE) {
                     echo 'exiting' . PHP_EOL;
-                    return TRUE;
+                    return true;
                 } else {
                     echo "\033[31m[" . get_class($e) . "]\033[0m " . $e->getMessage() . PHP_EOL;
                     echo 'File: ' . $e->getFile() . ':' . $e->getLine() . PHP_EOL;
@@ -114,3 +114,4 @@ class Prompt
         } while ($c = fgets(STDIN));
     }
 }
+

@@ -34,6 +34,7 @@ namespace DbPatcher;
  */
 class Patcher
 {
+
     /**
      * @var PDO
      */
@@ -64,10 +65,10 @@ class Patcher
      */
     public function __construct($path, \PDO $con)
     {
-        $this->path = $path;
-        $this->connection  = $con;
+        $this->path       = $path;
+        $this->connection = $con;
+        $this->stateFile  = $path . DIRECTORY_SEPARATOR . 'patcher_state.txt';
 
-        $this->stateFile = $path . DIRECTORY_SEPARATOR . 'patcher_state.txt';
         if (file_exists($this->stateFile)) {
             $this->loadState();
         } else {
@@ -129,7 +130,7 @@ class Patcher
      *
      * @return bool
      */
-    public function upgrade($version=NULL)
+    public function upgrade($version = null)
     {
         if (is_null($version)) {
             $patchTarget = array_pop($this->getList());
@@ -164,7 +165,7 @@ class Patcher
      *
      * @return bool
      */
-    public function downgrade($version=NULL)
+    public function downgrade($version = null)
     {
         if (is_null($version)) {
             $version = 0;
@@ -214,7 +215,7 @@ class Patcher
     private function loadState()
     {
         $this->state = array();
-        $state        = file($this->stateFile);
+        $state       = file($this->stateFile);
 
         foreach ($state as $patch) {
             $patch = trim($patch);
@@ -240,10 +241,10 @@ class Patcher
     {
         $data = implode(PHP_EOL, $this->state);
         if (!file_put_contents($this->stateFile, $data)) {
-            return FALSE;
+            return false;
         }
 
-        return TRUE;
+        return true;
     }
 
     /**
@@ -256,10 +257,10 @@ class Patcher
     private function patchExists($patch)
     {
         if (file_exists($this->getPatchPath($patch))) {
-            return TRUE;
+            return true;
         }
 
-        return FALSE;
+        return false;
     }
 
     /**
@@ -357,3 +358,4 @@ class Patcher
         return new $patchClass($this->connection);
     }
 }
+

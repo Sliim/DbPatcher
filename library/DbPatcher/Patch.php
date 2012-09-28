@@ -78,7 +78,7 @@ abstract class Patch
      *
      * @return void
      */
-    protected final function prepare($sql)
+    final protected function prepare($sql)
     {
         echo '[INFO] Prepare query: ' . $sql . PHP_EOL;
         $this->queries[] = $this->connection->prepare($sql);
@@ -87,9 +87,11 @@ abstract class Patch
     /**
      * Execute all prepared queries
      *
+     * @throws RuntimeException
+     *
      * @return void
      */
-    public final function execute()
+    final public function execute()
     {
         $this->connection->beginTransaction();
         foreach ($this->queries as $query) {
@@ -98,11 +100,15 @@ abstract class Patch
                 $query->execute();
             } catch (PDOException $e) {
                 $this->connection->rollBack();
-                throw new RuntimeException('Error on query `' . $query->queryString . '`.. Process to Rollback!' . PHP_EOL . 'Reason: ' . $e->getMessage());
+                throw new \RuntimeException(
+                    'Error on query `' . $query->queryString .
+                    '`.. Process to Rollback!' . PHP_EOL . 'Reason: ' .
+                    $e->getMessage()
+                );
             }
-
         }
 
         $this->connection->commit();
     }
 }
+
