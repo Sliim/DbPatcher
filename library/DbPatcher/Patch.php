@@ -98,7 +98,7 @@ abstract class Patch
             echo '[INFO] Execute query: ' . $query->queryString . PHP_EOL;
             try {
                 $query->execute();
-            } catch (PDOException $e) {
+            } catch (\PDOException $e) {
                 $this->connection->rollBack();
                 throw new \RuntimeException(
                     'Error on query `' . $query->queryString .
@@ -111,4 +111,3 @@ abstract class Patch
         $this->connection->commit();
     }
 }
-

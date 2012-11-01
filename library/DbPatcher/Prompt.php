@@ -101,7 +101,7 @@ class Prompt
                             break;
                     }
                 }
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 if ($e->getCode() === Commander::EXIT_CODE) {
                     echo 'exiting' . PHP_EOL;
                     return true;
@@ -114,4 +114,3 @@ class Prompt
         } while ($c = fgets(STDIN));
     }
 }
-
