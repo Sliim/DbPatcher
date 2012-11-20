@@ -48,7 +48,7 @@ class Commander
     /**
      * Constructor
      *
-     * @throws RuntimeException if sapi isn't cli
+     * @throws \RuntimeException if sapi isn't cli
      *
      * @return void
      */
@@ -66,7 +66,7 @@ class Commander
      * @param string $command Command to execute
      * @param array  $args    Command's arguments
      *
-     * @throws BadMethodCallException When command not found
+     * @throws \BadMethodCallException When command not found
      *
      * @return mixed Command's result
      */
@@ -91,8 +91,8 @@ class Commander
      * @param mixed  $command     String for a function name or array(object => method)
      * @param string $description Command's description
      *
-     * @throws BadMethodCallException
-     * @throws BadFunctionCallException
+     * @throws \BadMethodCallException
+     * @throws \BadFunctionCallException
      *
      * @return Commander
      */
@@ -142,7 +142,7 @@ class Commander
     /**
      * Exit command
      *
-     * @throws Exception with EXIT_CODE constant
+     * @throws \Exception with EXIT_CODE constant
      *
      * @return void
      */
@@ -151,4 +151,3 @@ class Commander
         throw new \Exception('exit', static::EXIT_CODE);
     }
 }
-

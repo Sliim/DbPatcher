@@ -31,4 +31,3 @@ return array(
     'password' => '...',
     'dbname'   => '...',
 );
-

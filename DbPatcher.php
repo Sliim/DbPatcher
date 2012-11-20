@@ -239,4 +239,3 @@ class DbPatcher
         echo PHP_EOL;
     }
 }
-

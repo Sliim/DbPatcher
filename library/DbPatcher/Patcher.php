@@ -281,7 +281,7 @@ class Patcher
      *
      * @param string $patch Patch to check
      *
-     * @throws UnexpectedValueException if name is invalid
+     * @throws \UnexpectedValueException if name is invalid
      *
      * @return void
      */
@@ -297,7 +297,7 @@ class Patcher
      *
      * @param int $version Version wanted
      *
-     * @throws LengthException If version too long
+     * @throws \LengthException If version too long
      *
      * @return string
      */
@@ -336,7 +336,7 @@ class Patcher
      *
      * @param string $patch Patch to get
      *
-     * @throws InvalidArgumentException if patch not found
+     * @throws \InvalidArgumentException if patch not found
      *
      * @return Patch
      */
@@ -358,4 +358,3 @@ class Patcher
         return new $patchClass($this->connection);
     }
 }
-

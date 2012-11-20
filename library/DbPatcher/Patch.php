@@ -52,7 +52,7 @@ abstract class Patch
      *
      * @return void
      */
-    public function __construct(PDO $con)
+    public function __construct(\PDO $con)
     {
         $this->connection = $con;
     }
@@ -87,7 +87,7 @@ abstract class Patch
     /**
      * Execute all prepared queries
      *
-     * @throws RuntimeException
+     * @throws \RuntimeException
      *
      * @return void
      */
